@@ -1,0 +1,72 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "retry": "Tekrar Dene",
+    "cancel": "İptal",
+    "confirm": "Onayla",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "close": "Kapat"
+  },
+  "auth": {
+    "welcome": "Hoş Geldiniz",
+    "login": "Giriş Yap",
+    "signup": "Kayıt Ol",
+    "email": "Email",
+    "password": "Şifre",
+    "passwordConfirm": "Şifre Tekrar",
+    "fullName": "Ad Soyad",
+    "loginSubtitle": "EventApp'e giriş yapın",
+    "signupSubtitle": "Yeni hesap oluşturun",
+    "noAccount": "Hesabınız yok mu?",
+    "hasAccount": "Zaten hesabınız var mı?",
+    "loginError": "Giriş yapılamadı",
+    "signupError": "Kayıt olunamadı",
+    "invalidCredentials": "Geçersiz email veya şifre",
+    "passwordTooShort": "Şifre en az 6 karakter olmalıdır",
+    "passwordsNotMatch": "Şifreler eşleşmiyor"
+  },
+  "events": {
+    "title": "Etkinlikler",
+    "noEvents": "Etkinlik bulunamadı",
+    "loading": "Etkinlikler yükleniyor...",
+    "searchPlaceholder": "Etkinlik ara...",
+    "all": "Tümü",
+    "details": "Etkinlik Detayı",
+    "location": "Konum",
+    "city": "Şehir",
+    "category": "Kategori",
+    "startDate": "Başlangıç",
+    "endDate": "Bitiş",
+    "source": "Kaynak",
+    "rsvp": "Etkinliğe Katıl",
+    "rsvpSuccess": "Etkinliğe kaydoldunuz!",
+    "rsvpError": "RSVP yapılamadı",
+    "rsvpConfirm": "Bu etkinliğe katılmak istediğinizden emin misiniz?",
+    "loginRequired": "Giriş Gerekli",
+    "loginRequiredMessage": "RSVP yapmak için giriş yapmalısınız"
+  },
+  "profile": {
+    "title": "Profil",
+    "settings": "Ayarlar",
+    "notifications": "Bildirimler",
+    "about": "Hakkında",
+    "logout": "Çıkış Yap",
+    "logoutConfirm": "Çıkış yapmak istediğinizden emin misiniz?",
+    "logoutConfirmTitle": "Çıkış Yap"
+  },
+  "notifications": {
+    "title": "Bildirimler",
+    "newEvent": "Yeni Etkinlik",
+    "newEventInCity": "{{city}} şehrinde yeni etkinlik!",
+    "permissionRequired": "Bildirim izni gerekli",
+    "permissionMessage": "Etkinlik bildirimleri almak için bildirim izni vermelisiniz",
+    "registerSuccess": "Bildirimler aktif",
+    "registerError": "Bildirim kaydı başarısız"
+  }
+}
+

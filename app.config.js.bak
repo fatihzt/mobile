@@ -1,0 +1,47 @@
+/**
+ * Dynamic App Configuration
+ * Environment variables ile dinamik config
+ */
+
+export default {
+  expo: {
+    name: 'EventApp',
+    slug: 'eventapp',
+    version: '1.0.0',
+    orientation: 'portrait',
+    icon: './assets/icon.png',
+    userInterfaceStyle: 'light',
+    newArchEnabled: true,
+    scheme: 'eventapp',
+    splash: {
+      image: './assets/splash-icon.png',
+      resizeMode: 'contain',
+      backgroundColor: '#ffffff',
+    },
+    ios: {
+      supportsTablet: true,
+      bundleIdentifier: 'com.eventapp.mobile',
+      buildNumber: process.env.EXPO_PUBLIC_BUILD_NUMBER || '1',
+    },
+    web: {
+      favicon: './assets/favicon.png',
+    },
+    plugins: [
+      'expo-router',
+      'expo-localization',
+      [
+        'expo-notifications',
+        {
+          icon: './assets/icon.png',
+          color: '#ffffff',
+        },
+      ],
+    ],
+    extra: {
+      eas: {
+        projectId: process.env.EXPO_PUBLIC_EAS_PROJECT_ID || 'your-project-id-here',
+      },
+    },
+  },
+};
+

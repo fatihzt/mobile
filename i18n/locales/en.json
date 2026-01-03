@@ -1,0 +1,72 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "close": "Close"
+  },
+  "auth": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "fullName": "Full Name",
+    "loginSubtitle": "Sign in to EventApp",
+    "signupSubtitle": "Create a new account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "loginError": "Login failed",
+    "signupError": "Signup failed",
+    "invalidCredentials": "Invalid email or password",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordsNotMatch": "Passwords do not match"
+  },
+  "events": {
+    "title": "Events",
+    "noEvents": "No events found",
+    "loading": "Loading events...",
+    "searchPlaceholder": "Search events...",
+    "all": "All",
+    "details": "Event Details",
+    "location": "Location",
+    "city": "City",
+    "category": "Category",
+    "startDate": "Start",
+    "endDate": "End",
+    "source": "Source",
+    "rsvp": "Join Event",
+    "rsvpSuccess": "You've registered for the event!",
+    "rsvpError": "Failed to RSVP",
+    "rsvpConfirm": "Are you sure you want to join this event?",
+    "loginRequired": "Login Required",
+    "loginRequiredMessage": "You must login to RSVP"
+  },
+  "profile": {
+    "title": "Profile",
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "about": "About",
+    "logout": "Logout",
+    "logoutConfirm": "Are you sure you want to logout?",
+    "logoutConfirmTitle": "Logout"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "newEvent": "New Event",
+    "newEventInCity": "New event in {{city}}!",
+    "permissionRequired": "Notification permission required",
+    "permissionMessage": "You must grant notification permission to receive event notifications",
+    "registerSuccess": "Notifications enabled",
+    "registerError": "Failed to register notifications"
+  }
+}
+
