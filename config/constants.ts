@@ -7,6 +7,6 @@ export const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000
 export const ENV = process.env.EXPO_PUBLIC_ENV || 'development';
 
 // App Constants
-export const APP_NAME = 'EventApp';
+export const APP_NAME = 'HAPN';
 export const CACHE_TIME = 5 * 60 * 1000; // 5 dakika
 

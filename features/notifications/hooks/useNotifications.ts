@@ -2,8 +2,8 @@
  * Notifications Hook
  */
 
-import { useAtom, useSetAtom } from 'jotai';
-import { useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { useCallback, useEffect } from 'react';
 import { expoPushTokenAtom, isRegisteredAtom } from '../store/notificationAtoms';
 import notificationService from '../services/notificationService';
 import { useAtomValue } from 'jotai';
@@ -24,7 +24,7 @@ export const useNotifications = () => {
         setIsRegistered(true);
       }
     } catch (error) {
-      console.error('Error registering for push notifications:', error);
+      if (__DEV__) console.error('Error registering for push notifications:', error);
     }
   }, [user?.id, setExpoPushToken, setIsRegistered]);
 

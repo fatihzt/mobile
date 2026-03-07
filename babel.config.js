@@ -1,34 +1,22 @@
-module.exports = function(api) {
+module.exports = function (api) {
   api.cache(true);
-  const isWeb = api.caller((caller) => caller?.platform === 'web');
-  
   return {
-    presets: [
-      [
-        "babel-preset-expo",
-        {
-          jsxImportSource: "nativewind",
-          web: { useTransformReactJSXExperimental: true },
-        },
-      ],
-      "nativewind/babel",
-    ],
+    presets: ['babel-preset-expo'],
     plugins: [
       [
-        "module-resolver",
+        'module-resolver',
         {
-          root: ["./"],
+          root: ['./'],
+          extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
           alias: {
-            "@": "./",
-            "@/features": "./features",
-            "@/shared": "./shared",
-            "@/config": "./config",
+            '@': './',
+            '@/features': './features',
+            '@/shared': './shared',
+            '@/config': './config',
           },
         },
       ],
-      // react-native-reanimated plugin'ini sadece native için ekle
-      !isWeb && "react-native-reanimated/plugin",
-    ].filter(Boolean),
+      'react-native-reanimated/plugin',
+    ],
   };
 };
-

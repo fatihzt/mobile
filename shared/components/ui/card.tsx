@@ -1,48 +1,59 @@
-/**
- * Card Component - shadcn/ui style
- */
-
 import React from 'react';
-import { View, ViewProps } from 'react-native';
-import { cn } from '../../lib/utils';
+import { View, ViewProps, StyleSheet, ViewStyle } from 'react-native';
+import { colors, spacing, radius } from '@/shared/theme';
 
+/* ────────────────────────────────────────── */
+/* TYPES                                       */
+/* ────────────────────────────────────────── */
 interface CardProps extends ViewProps {
   children: React.ReactNode;
-  className?: string;
+  style?: ViewStyle;
 }
 
-export const Card: React.FC<CardProps> = ({ children, className, ...props }) => {
+interface CardSectionProps {
+  children: React.ReactNode;
+  style?: ViewStyle;
+}
+
+/* ────────────────────────────────────────── */
+/* COMPONENTS                                  */
+/* ────────────────────────────────────────── */
+export const Card: React.FC<CardProps> = ({ children, style, ...props }) => {
   return (
-    <View
-      className={cn(
-        'bg-white rounded-xl overflow-hidden shadow-sm',
-        className
-      )}
-      {...props}
-    >
+    <View style={[styles.card, style]} {...props}>
       {children}
     </View>
   );
 };
 
-export const CardHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({
-  children,
-  className,
-}) => {
-  return <View className={cn('p-4', className)}>{children}</View>;
+export const CardHeader: React.FC<CardSectionProps> = ({ children, style }) => {
+  return <View style={[styles.section, style]}>{children}</View>;
 };
 
-export const CardContent: React.FC<{ children: React.ReactNode; className?: string }> = ({
-  children,
-  className,
-}) => {
-  return <View className={cn('p-4', className)}>{children}</View>;
+export const CardContent: React.FC<CardSectionProps> = ({ children, style }) => {
+  return <View style={[styles.section, style]}>{children}</View>;
 };
 
-export const CardFooter: React.FC<{ children: React.ReactNode; className?: string }> = ({
-  children,
-  className,
-}) => {
-  return <View className={cn('p-4 pt-0', className)}>{children}</View>;
+export const CardFooter: React.FC<CardSectionProps> = ({ children, style }) => {
+  return <View style={[styles.footer, style]}>{children}</View>;
 };
 
+/* ────────────────────────────────────────── */
+/* STYLES                                     */
+/* ────────────────────────────────────────── */
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: colors.card,
+    borderRadius: radius.lg,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.borderGold,
+  },
+  section: {
+    padding: spacing.base,
+  },
+  footer: {
+    paddingHorizontal: spacing.base,
+    paddingBottom: spacing.base,
+  },
+});

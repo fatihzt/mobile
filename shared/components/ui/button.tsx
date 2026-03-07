@@ -1,11 +1,17 @@
-/**
- * Button Component - shadcn/ui style
- */
-
 import React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
-import { cn } from '../../lib/utils';
+import {
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  ViewStyle,
+} from 'react-native';
+import * as Haptics from 'expo-haptics';
+import { colors, spacing, radius } from '@/shared/theme';
 
+/* ────────────────────────────────────────── */
+/* TYPES                                       */
+/* ────────────────────────────────────────── */
 interface ButtonProps {
   children: React.ReactNode;
   onPress: () => void;
@@ -13,9 +19,12 @@ interface ButtonProps {
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   loading?: boolean;
-  className?: string;
+  style?: ViewStyle;
 }
 
+/* ────────────────────────────────────────── */
+/* COMPONENT                                   */
+/* ────────────────────────────────────────── */
 export const Button: React.FC<ButtonProps> = ({
   children,
   onPress,
@@ -23,53 +32,77 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'md',
   disabled = false,
   loading = false,
-  className,
+  style,
 }) => {
-  const baseStyles = 'rounded-lg items-center justify-center';
-  
-  const variantStyles = {
-    default: 'bg-primary',
-    outline: 'bg-transparent border border-gray-300',
-    ghost: 'bg-transparent',
-    destructive: 'bg-red-600',
+  const handlePress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    onPress();
   };
 
-  const sizeStyles = {
-    sm: 'px-3 py-2',
-    md: 'px-4 py-3',
-    lg: 'px-6 py-4',
+  const getVariantStyle = (): ViewStyle => {
+    switch (variant) {
+      case 'outline':
+        return { backgroundColor: 'transparent', borderWidth: 1, borderColor: colors.borderGold };
+      case 'ghost':
+        return { backgroundColor: 'transparent' };
+      case 'destructive':
+        return { backgroundColor: 'transparent', borderWidth: 1, borderColor: colors.error };
+      default:
+        return { backgroundColor: colors.gold };
+    }
   };
 
-  const textVariantStyles = {
-    default: 'text-white',
-    outline: 'text-gray-900',
-    ghost: 'text-gray-900',
-    destructive: 'text-white',
+  const getSizeStyle = (): ViewStyle => {
+    switch (size) {
+      case 'sm':
+        return { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, minHeight: 44 };
+      case 'lg':
+        return { paddingHorizontal: spacing.lg, paddingVertical: spacing.base, minHeight: 44 };
+      default:
+        return { paddingHorizontal: spacing.base, paddingVertical: spacing.md, minHeight: 44 };
+    }
   };
 
-  const textSizeStyles = {
-    sm: 'text-sm',
-    md: 'text-base',
-    lg: 'text-lg',
+  const getTextColor = (): string => {
+    switch (variant) {
+      case 'outline':
+      case 'ghost':
+        return colors.gold;
+      case 'destructive':
+        return colors.error;
+      default:
+        return colors.background;
+    }
+  };
+
+  const getTextSize = (): number => {
+    switch (size) {
+      case 'sm':
+        return 14;
+      case 'lg':
+        return 18;
+      default:
+        return 16;
+    }
   };
 
   return (
     <TouchableOpacity
-      className={cn(
-        baseStyles,
-        variantStyles[variant],
-        sizeStyles[size],
-        (disabled || loading) && 'opacity-50',
-        className
-      )}
-      onPress={onPress}
+      style={[
+        styles.base,
+        getVariantStyle(),
+        getSizeStyle(),
+        (disabled || loading) && styles.disabled,
+        style,
+      ]}
+      onPress={handlePress}
       disabled={disabled || loading}
       activeOpacity={0.7}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'default' || variant === 'destructive' ? '#fff' : '#000'} />
+        <ActivityIndicator color={getTextColor()} />
       ) : (
-        <Text className={cn('font-semibold', textVariantStyles[variant], textSizeStyles[size])}>
+        <Text style={[styles.text, { color: getTextColor(), fontSize: getTextSize() }]}>
           {children}
         </Text>
       )}
@@ -77,3 +110,19 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
+/* ────────────────────────────────────────── */
+/* STYLES                                     */
+/* ────────────────────────────────────────── */
+const styles = StyleSheet.create({
+  base: {
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  text: {
+    fontWeight: '600',
+  },
+});

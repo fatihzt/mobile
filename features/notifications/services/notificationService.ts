@@ -10,7 +10,7 @@ import { Platform } from 'react-native';
 class NotificationService {
   async registerForPushNotifications(userId: string): Promise<string | null> {
     if (!Device.isDevice) {
-      console.warn('⚠️ Push notifications only work on physical devices');
+      if (__DEV__) console.warn('⚠️ Push notifications only work on physical devices');
       return null;
     }
 
@@ -23,7 +23,7 @@ class NotificationService {
     }
 
     if (finalStatus !== 'granted') {
-      console.warn('⚠️ Failed to get push token for push notification!');
+      if (__DEV__) console.warn('⚠️ Failed to get push token for push notification!');
       return null;
     }
 
@@ -35,14 +35,20 @@ class NotificationService {
 
     // Backend'e token gönder
     try {
-      await api.post('/notifications/register', {
+      if (__DEV__) console.log('📱 RegisterPushToken Request:', { userId, platform: Platform.OS });
+      const response = await api.post('/notifications/register', {
         token,
         platform: Platform.OS,
         userId,
       });
-      console.log('✅ Push token registered successfully');
-    } catch (error) {
-      console.error('❌ Failed to register push token:', error);
+      if (__DEV__) console.log('✅ Push token registered successfully:', response.data);
+    } catch (error: any) {
+      if (__DEV__) console.error('❌ Failed to register push token:', {
+        message: error?.message,
+        error: error?.error,
+        response: error?.response,
+        userId,
+      });
     }
 
     return token;

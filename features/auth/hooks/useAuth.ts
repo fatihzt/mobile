@@ -12,20 +12,30 @@ import {
   loginAtom,
   signupAtom,
   logoutAtom,
+  updateProfileAtom,
 } from '../store/authAtoms';
+import { setOnUnauthorizedCallback } from '@/shared/services/api';
 
 export const useAuth = () => {
-  const [user] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
   const [isLoading] = useAtom(isLoadingAtom);
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const checkAuth = useSetAtom(checkAuthAtom);
   const login = useSetAtom(loginAtom);
   const signup = useSetAtom(signupAtom);
   const logout = useSetAtom(logoutAtom);
+  const updateProfile = useSetAtom(updateProfileAtom);
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  // Register 401 callback to clear auth state
+  useEffect(() => {
+    setOnUnauthorizedCallback(() => {
+      setUser(null);
+    });
+  }, [setUser]);
 
   const handleLogin = useCallback(
     async (email: string, password: string) => {
@@ -45,6 +55,13 @@ export const useAuth = () => {
     await logout();
   }, [logout]);
 
+  const handleUpdateProfile = useCallback(
+    async (data: { full_name: string }) => {
+      await updateProfile(data);
+    },
+    [updateProfile]
+  );
+
   return {
     user,
     isLoading,
@@ -52,6 +69,7 @@ export const useAuth = () => {
     login: handleLogin,
     signup: handleSignup,
     logout: handleLogout,
+    updateProfile: handleUpdateProfile,
   };
 };
 

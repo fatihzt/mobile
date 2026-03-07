@@ -1,41 +1,77 @@
-/**
- * Input Component - shadcn/ui style
- */
+import React, { useState } from 'react';
+import { TextInput, TextInputProps, View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { colors, spacing, radius } from '@/shared/theme';
 
-import React from 'react';
-import { TextInput, TextInputProps, View, Text } from 'react-native';
-import { cn } from '../../lib/utils';
-
+/* ────────────────────────────────────────── */
+/* TYPES                                       */
+/* ────────────────────────────────────────── */
 interface InputProps extends TextInputProps {
   label?: string;
   error?: string;
-  className?: string;
+  containerStyle?: ViewStyle;
 }
 
-export const Input: React.FC<InputProps> = ({
-  label,
-  error,
-  className,
-  ...props
-}) => {
+/* ────────────────────────────────────────── */
+/* COMPONENT                                   */
+/* ────────────────────────────────────────── */
+export const Input: React.FC<InputProps> = ({ label, error, containerStyle, style, ...props }) => {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
-    <View className="mb-4">
-      {label && (
-        <Text className="text-sm font-medium text-gray-700 mb-2">{label}</Text>
-      )}
+    <View style={[styles.container, containerStyle]}>
+      {label && <Text style={styles.label}>{label}</Text>}
       <TextInput
-        className={cn(
-          'border border-gray-300 rounded-lg px-4 py-3 text-base bg-gray-50',
-          error && 'border-red-500',
-          className
-        )}
-        placeholderTextColor="#999"
+        style={[
+          styles.input,
+          isFocused && styles.inputFocused,
+          error && styles.inputError,
+          style,
+        ]}
+        placeholderTextColor="rgba(242, 240, 233, 0.3)"
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         {...props}
       />
-      {error && (
-        <Text className="text-sm text-red-500 mt-1">{error}</Text>
-      )}
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
 
+/* ────────────────────────────────────────── */
+/* STYLES                                     */
+/* ────────────────────────────────────────── */
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: spacing.base,
+  },
+  label: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: colors.gold,
+    marginBottom: spacing.sm,
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: colors.borderGold,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.base,
+    paddingVertical: spacing.md,
+    minHeight: 44,
+    fontSize: 16,
+    backgroundColor: colors.surface,
+    color: colors.champagne,
+  },
+  inputFocused: {
+    borderColor: colors.gold,
+  },
+  inputError: {
+    borderColor: colors.error,
+  },
+  errorText: {
+    fontSize: 12,
+    color: colors.error,
+    marginTop: spacing.xs,
+  },
+});

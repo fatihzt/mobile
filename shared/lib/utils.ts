@@ -2,16 +2,6 @@
  * Shared Utilities
  */
 
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-/**
- * Merge Tailwind classes with clsx
- */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
 /**
  * Format date for display
  */
@@ -35,4 +25,3 @@ export function formatDateTime(date: string | Date): string {
     minute: '2-digit',
   });
 }
-
